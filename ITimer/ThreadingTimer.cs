@@ -3,7 +3,7 @@ using System.Threading;
 
 namespace ITimer
 {
-    public class ThreadingTimer : BaseTimer, ITimer, IDisposable
+    public class ThreadingTimer : BaseTimer, ISignaler, IDisposable
     {
         private bool _disposed;
         private readonly Timer _timer;

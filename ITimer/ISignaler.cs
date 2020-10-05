@@ -2,7 +2,7 @@
 
 namespace ITimer
 {
-    public interface ITimer
+    public interface ISignaler
     {
         event ElapsedEventHandler Elapsed;
         TimeSpan Interval { get; }

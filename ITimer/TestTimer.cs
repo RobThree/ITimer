@@ -4,7 +4,7 @@ using System.Threading;
 
 namespace ITimer
 {
-    public class TestTimer : BaseTimer, ITimer
+    public class TestTimer : BaseTimer, ISignaler
     {
         public event EventHandler<StartedEventArgs> Started;
         public event EventHandler<StoppedEventArgs> Stopped;

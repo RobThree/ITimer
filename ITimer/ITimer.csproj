@@ -14,6 +14,15 @@
     <Version>1.0.0-alpha</Version>
     <Description>Provides a testable abstraction and alternative to System.Threading.Timer and System.Timers.Timer</Description>
     <PackageIcon>logo.png</PackageIcon>
+    <Configurations>Debug;Release;ReleaseWithDocumentation</Configurations>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseWithDocumentation|AnyCPU'">
+    <DocumentationFile>bin\release\ITimer.xml</DocumentationFile>
+  </PropertyGroup>
+
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+    <DocumentationFile>bin\release\ITimer.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
