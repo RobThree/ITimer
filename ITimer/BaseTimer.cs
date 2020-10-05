@@ -8,7 +8,9 @@ namespace ITimer
     {
         public event ElapsedEventHandler Elapsed;
 
-        protected static readonly Func<DateTimeOffset> _defaulttimeprovider = () => DateTimeOffset.Now;
+        protected static readonly Func<DateTimeOffset> DEFAULTTIMEPROVIDER = () => DateTimeOffset.Now;
+
+        public static Func<DateTimeOffset> DefaultTimeProvider { get => DEFAULTTIMEPROVIDER; }
 
         public TimeSpan Interval { get; private set; }
         public bool AutoReset { get; private set; }
@@ -19,10 +21,10 @@ namespace ITimer
             double roundedInterval = Math.Ceiling(interval.TotalMilliseconds);
             if (roundedInterval > int.MaxValue || roundedInterval < 0)
                 throw new ArgumentOutOfRangeException(nameof(interval));
-            
+
             Interval = interval;
             AutoReset = autoReset;
-            TimeProvider = timeProvider ?? _defaulttimeprovider;
+            TimeProvider = timeProvider ?? DEFAULTTIMEPROVIDER;
         }
 
         protected virtual void OnElapsed(TimerElapsedEventArgs e)

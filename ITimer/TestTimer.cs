@@ -11,7 +11,7 @@ namespace ITimer
 
         public int TickCount => _tickcount;
         public int StartCount => _startcount;
-        public int EndCount => _endcount;
+        public int StopCount => _endcount;
 
         private int _tickcount;
         private int _startcount;
@@ -28,18 +28,25 @@ namespace ITimer
 
             for (var i = 0; i < ticks; i++)
             {
-                var tickcount = Interlocked.Increment(ref _tickcount);
                 if (timeProvider != null)
-                    OnElapsed(new TimerElapsedEventArgs(timeProvider(i)));
+                    RaiseElapsed(timeProvider(i));
                 else
-                    OnElapsed(new TimerElapsedEventArgs(TimeProvider.Invoke()));
+                    RaiseElapsed(TimeProvider.Invoke());
             }
         }
 
         public void Tick(IEnumerable<DateTimeOffset> signalTimes)
         {
+            if (signalTimes == null)
+                throw new ArgumentNullException(nameof(signalTimes));
+
             foreach (var s in signalTimes)
-                OnElapsed(new TimerElapsedEventArgs(s));
+                RaiseElapsed(s);
+        }
+
+        private void RaiseElapsed(DateTimeOffset signalTime)
+        {
+            OnElapsed(new TestTimerElapsedEventArgs(Interlocked.Increment(ref _tickcount), signalTime));
         }
 
         public void Start()
