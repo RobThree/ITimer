@@ -18,6 +18,9 @@ namespace ITimer
 
         public BaseTimer(TimeSpan interval, bool autoReset, Func<DateTimeOffset> timeProvider)
         {
+            if (interval < TimeSpan.Zero)
+                throw new ArgumentOutOfRangeException(nameof(interval));
+
             double roundedInterval = Math.Ceiling(interval.TotalMilliseconds);
             if (roundedInterval > int.MaxValue || roundedInterval < 0)
                 throw new ArgumentOutOfRangeException(nameof(interval));
