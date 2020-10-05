@@ -12,7 +12,7 @@
     <RepositoryType>Git</RepositoryType>
     <PackageTags>timer clock</PackageTags>
     <Version>1.0.0-alpha</Version>
-    <Description>Provides a testable abstraction and alternative to System.Threading.Timer / System.Timers.Timer</Description>
+    <Description>Provides a testable abstraction and alternative to System.Threading.Timer and System.Timers.Timer</Description>
     <PackageIcon>logo.png</PackageIcon>
   </PropertyGroup>
 
