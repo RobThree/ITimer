@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30517.126
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ITimer", "ITimer\ITimer.csproj", "{2FBE4D53-9BC5-44CE-98AE-8806B764B425}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestApp", "TestApp\TestApp.csproj", "{4DD89227-1798-4D87-AB12-4E7B0607F97D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{2FBE4D53-9BC5-44CE-98AE-8806B764B425}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2FBE4D53-9BC5-44CE-98AE-8806B764B425}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2FBE4D53-9BC5-44CE-98AE-8806B764B425}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2FBE4D53-9BC5-44CE-98AE-8806B764B425}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4DD89227-1798-4D87-AB12-4E7B0607F97D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4DD89227-1798-4D87-AB12-4E7B0607F97D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4DD89227-1798-4D87-AB12-4E7B0607F97D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4DD89227-1798-4D87-AB12-4E7B0607F97D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B5C27EE2-9510-4872-B1EE-BD862EFAF19C}
+	EndGlobalSection
+EndGlobal
