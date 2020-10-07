@@ -159,5 +159,13 @@ namespace ITimer.Tests
             var target = new TestTimer();
             target.Tick((IEnumerable<DateTimeOffset>)null);
         }
+
+        [TestMethod]
+        [ExpectedException(typeof(InvalidOperationException))]
+        public void TestTimer_RequireStart_RequiresStart()
+        {
+            var target = new TestTimer(requireStart: true);
+            target.Tick();  // Timer is not "started", requirestart is true, we should get an exception
+        }
     }
 }

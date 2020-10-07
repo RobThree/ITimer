@@ -3,11 +3,27 @@ using System.Timers;
 
 namespace ITimer
 {
+    /// <summary>
+    /// Provides a wrapper for the <see cref="System.Timers.Timer" /> implementing the <see cref="ISignaler" /> interface.
+    /// </summary>
     public class SystemTimer : BaseTimer, ISignaler, IDisposable
     {
         private bool _disposed;
         private readonly Timer _timer;
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="SystemTimer" /> class, using the specified interval.
+        /// </summary>
+        /// <param name="interval">The time interval between raising the <see cref="BaseTimer.Elapsed" /> event.</param>
+        /// <param name="autoReset">
+        ///     Whether the <see cref="SystemTimer" /> should raise the <see cref="BaseTimer.Elapsed" /> event only once
+        ///     (<c>false</c>) or repeatedly (<c>true</c>).
+        /// </param>
+        /// <param name="timeProvider">
+        ///     When specified, the <c>timeProvider</c> is used to determine the <see cref="TimerElapsedEventArgs.SignalTime" />
+        ///     when the <see cref="BaseTimer.Elapsed" /> event is raised. When no <c>timeProvider</c> is specified the
+        ///     <see cref="BaseTimer.DefaultTimeProvider" /> is used.
+        /// </param>
         public SystemTimer(TimeSpan interval, bool autoReset = true, Func<DateTimeOffset> timeProvider = null)
             :base(interval, autoReset, timeProvider)
         {
@@ -15,10 +31,23 @@ namespace ITimer
             _timer.Elapsed += (s, e) => OnElapsed(new TimerElapsedEventArgs(TimeProvider?.Invoke() ?? e.SignalTime));
         }
 
+        /// <summary>
+        /// Starts raising the <see cref="BaseTimer.Elapsed" /> event.
+        /// </summary>
         public void Start() => _timer.Start();
+
+        /// <summary>
+        /// Stops raising the <see cref="BaseTimer.Elapsed" /> event.
+        /// </summary>
         public void Stop() => _timer.Stop();
 
         #region IDisposable
+        /// <summary>
+        /// Releases all resources used by the current <see cref="SystemTimer" />.
+        /// </summary>
+        /// <param name="disposing">
+        ///     <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.
+        /// </param>
         protected virtual void Dispose(bool disposing)
         {
             if (!_disposed)
@@ -32,6 +61,9 @@ namespace ITimer
             }
         }
 
+        /// <summary>
+        /// Releases all resources used by the current <see cref="SystemTimer" />.
+        /// </summary>
         public void Dispose()
         {
             Dispose(disposing: true);

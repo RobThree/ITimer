@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Topics>
-  <Topic id="f040de3f-48bf-4692-bd45-e7ae3115b34d" visible="True" isDefault="true" isSelected="true" title="Welcome to the [TODO: Add project name]">
+  <Topic id="f040de3f-48bf-4692-bd45-e7ae3115b34d" visible="True" isDefault="true" isSelected="true" title="Welcome to the ITimer project">
     <HelpKeywords>
       <HelpKeyword index="K" term="Welcome" />
     </HelpKeywords>

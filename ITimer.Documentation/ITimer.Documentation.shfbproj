@@ -51,6 +51,9 @@
     <FeedbackEMailAddress>rob%40devcorner.nl</FeedbackEMailAddress>
     <FeedbackEMailLinkText>RobIII</FeedbackEMailLinkText>
     <SdkLinkTarget>Blank</SdkLinkTarget>
+    <NamespaceSummaries>
+      <NamespaceSummaryItem name="ITimer" isDocumented="True" xmlns="">&lt;para&gt;Provides interfaces and classes to work with (testable) timers as an alternative to using &lt;see cref="T:System.Timers.Timer"&gt;System.Timers.Timer&lt;/see&gt; / &lt;see cref="T:System.Threading.Timer"&gt;System.Threading.Timer&lt;/see&gt;.&lt;/para&gt;</NamespaceSummaryItem>
+    </NamespaceSummaries>
   </PropertyGroup>
   <!-- There are no properties for these groups.  AnyCPU needs to appear in order for Visual Studio to perform
 			 the build.  The others are optional common platform types that may appear. -->
