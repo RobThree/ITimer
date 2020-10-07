@@ -26,7 +26,7 @@ namespace ITimer
         ///     <see cref="BaseTimer.DefaultTimeProvider" /> is used.
         /// </param>
         public ThreadingTimer(TimeSpan interval, bool autoReset = true, Func<DateTimeOffset> timeProvider = null)
-            :base(interval, autoReset, timeProvider)
+            : base(interval, autoReset, timeProvider)
         {
             _timer = new Timer(TimerCallback, null, Timeout.InfiniteTimeSpan, interval);
         }

@@ -25,7 +25,7 @@ namespace ITimer
         ///     <see cref="BaseTimer.DefaultTimeProvider" /> is used.
         /// </param>
         public SystemTimer(TimeSpan interval, bool autoReset = true, Func<DateTimeOffset> timeProvider = null)
-            :base(interval, autoReset, timeProvider)
+            : base(interval, autoReset, timeProvider)
         {
             _timer = new Timer(Interval.TotalMilliseconds) { AutoReset = AutoReset };
             _timer.Elapsed += (s, e) => OnElapsed(new TimerElapsedEventArgs(TimeProvider?.Invoke() ?? e.SignalTime));
