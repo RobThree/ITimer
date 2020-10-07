@@ -9,7 +9,7 @@ namespace ITimer
     /// Yes, <see cref="ISignaler" /> is not the best name. <c>ITimer</c> would have been a much better choice, but
     /// that conflicts with the namespace. That would require you to write ITimer.ITimer everywhere this interface
     /// is used. And since we wanted a simple package-ID and simple (root) namespace we opted for ITimer as namespace
-    /// and <see cref="ISignaler" /> as interface name. If you have any better suggestion, please let us know and
+    /// and <see cref="ISignaler" /> as interface name. If you have any better suggestions, please let us know and
     /// we'll consider it for the next major version.
     /// </remarks>
     public interface ISignaler
