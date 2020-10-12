@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Timers;
 
 namespace ITimer
@@ -24,10 +25,12 @@ namespace ITimer
         ///     when the <see cref="BaseTimer.Elapsed" /> event is raised. When no <c>timeProvider</c> is specified the
         ///     <see cref="BaseTimer.DefaultTimeProvider" /> is used.
         /// </param>
-        public SystemTimer(TimeSpan interval, bool autoReset = true, Func<DateTimeOffset> timeProvider = null)
+        /// <param name="synchronizingObject">The object used to marshal event-handler calls that are issued when an interval has elapsed.</param>
+        public SystemTimer(TimeSpan interval, bool autoReset = true, Func<DateTimeOffset> timeProvider = null, ISynchronizeInvoke synchronizingObject = null)
             : base(interval, autoReset, timeProvider)
         {
             _timer = new Timer(Interval.TotalMilliseconds) { AutoReset = AutoReset };
+            _timer.SynchronizingObject = synchronizingObject;
             _timer.Elapsed += (s, e) => OnElapsed(new TimerElapsedEventArgs(TimeProvider?.Invoke() ?? e.SignalTime));
         }
 
@@ -40,6 +43,15 @@ namespace ITimer
         /// Stops raising the <see cref="BaseTimer.Elapsed" /> event.
         /// </summary>
         public void Stop() => _timer.Stop();
+
+        /// <summary>
+        /// Gets or sets the object used to marshal event-handler calls that are issued when an interval has elapsed.
+        /// </summary>
+        public ISynchronizeInvoke SynchronizingObject
+        {
+            get { return _timer.SynchronizingObject; }
+            set { _timer.SynchronizingObject = value; }
+        }
 
         #region IDisposable
         /// <summary>

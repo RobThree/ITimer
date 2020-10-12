@@ -6,9 +6,9 @@ namespace ITimer
     /// Provides an interface for timers (or, "signalers").
     /// </summary>
     /// <remarks>
-    /// Yes, <see cref="ISignaler" /> is not the best name. <c>ITimer</c> would have been a much better choice, but
-    /// that conflicts with the namespace. That would require you to write ITimer.ITimer everywhere this interface
-    /// is used. And since we wanted a simple package-ID and simple (root) namespace we opted for ITimer as namespace
+    /// Agreed, <see cref="ISignaler" /> is not the best name. <c>ITimer</c> would have been a much better choice, but
+    /// that conflicts with the namespace. That would require you to write <c>ITimer.ITimer</c> everywhere this interface
+    /// is used. And since we wanted a simple package-ID and simple (root) namespace we opted for <c>ITimer</c> as namespace
     /// and <see cref="ISignaler" /> as interface name. If you have any better suggestions, please let us know and
     /// we'll consider it for the next major version.
     /// </remarks>
