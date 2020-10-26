@@ -11,10 +11,11 @@
     <RepositoryUrl>https://github.com/RobThree/ITimer</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>timer clock</PackageTags>
-    <Version>1.0.0-alpha</Version>
+    <Version>1.0.0</Version>
     <Description>Provides a testable abstraction and alternative to System.Threading.Timer and System.Timers.Timer</Description>
     <PackageIcon>logo.png</PackageIcon>
     <Configurations>Debug;Release;ReleaseWithDocumentation</Configurations>
+    <PackageReleaseNotes>Initial release</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseWithDocumentation|AnyCPU'">
