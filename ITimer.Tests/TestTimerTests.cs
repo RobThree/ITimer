@@ -19,7 +19,7 @@ namespace ITimer.Tests
 
             Assert.AreEqual(target.Interval, TimeSpan.Zero);
             Assert.IsFalse(target.AutoReset);
-            Assert.ReferenceEquals(target.TimeProvider, BaseTimer.DefaultTimeProvider);
+            ReferenceEquals(target.TimeProvider, BaseTimer.DefaultTimeProvider);
         }
 
         [TestMethod]

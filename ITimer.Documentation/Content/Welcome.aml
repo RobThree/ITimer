@@ -40,7 +40,7 @@
 public class MyClass
 {
     private readonly ISignaler _timer;
-    
+
     public MyClass(ISignaler timer)
     {
         _timer = timer ?? throw new ArgumentNullException(nameof(timer));
@@ -119,7 +119,31 @@ public void ConfigureServices(IServiceCollection services)
     <section>
       <title>TestTimer</title>
       <content>
-        <para>TODO</para>
+        <para>
+          With the <codeEntityReference>T:ITimer.TestTimer</codeEntityReference> you are in complete control over when, and how often, the timer fires. You even control the <codeEntityReference>P:ITimer.TimerElapsedEventArgs.SignalTime</codeEntityReference> so you can specify at what (pretend) time the timer fired. Ofcourse, this is very useful in unittests.
+        </para>
+        <para>
+          The <codeEntityReference>T:ITimer.TestTimer</codeEntityReference> offers some extra properties like the <codeEntityReference>P:ITimer.TestTimer.TickCount</codeEntityReference>, <codeEntityReference>P:ITimer.TestTimer.StartCount</codeEntityReference> and <codeEntityReference>P:ITimer.TestTimer.StopCount</codeEntityReference> that keep track of how often the <codeEntityReference>E:ITimer.ISignaler.Elapsed</codeEntityReference> event has been raised and the timer has been started and stopped respectively (all of which can be reset with the <codeEntityReference>M:ITimer.TestTimer.Reset</codeEntityReference> method). The <codeEntityReference>E:ITimer.ISignaler.Elapsed</codeEntityReference> event for the <codeEntityReference>T:ITimer.TestTimer</codeEntityReference> provides the <codeEntityReference>T:ITimer.TestTimerElapsedEventArgs</codeEntityReference> which also contains a <codeEntityReference>P:ITimer.TestTimerElapsedEventArgs.TickCount</codeEntityReference> property.
+        </para>
+        <para>
+          Most important, however, for the <codeEntityReference>T:ITimer.TestTimer</codeEntityReference> are the <codeEntityReference>M:ITimer.TestTimer.Tick(System.Nullable{System.DateTimeOffset})</codeEntityReference>, <codeEntityReference>M:ITimer.TestTimer.Tick(System.Collections.Generic.IEnumerable{System.DateTimeOffset})</codeEntityReference> and <codeEntityReference>M:ITimer.TestTimer.Tick(System.Int32, System.Func{System.Int32, System.DateTimeOffset})</codeEntityReference> methods. These methods will raise the <codeEntityReference>E:ITimer.ISignaler.Elapsed</codeEntityReference> event on the <codeEntityReference>T:ITimer.TestTimer</codeEntityReference> and allow you to specify the <codeEntityReference>P:ITimer.TimerElapsedEventArgs.SignalTime</codeEntityReference>.
+        </para>
+        <para>
+          Given the above example, we can now replace the <codeEntityReference>T:ITimer.SystemTimer</codeEntityReference> with a <codeEntityReference>T:ITimer.TestTimer</codeEntityReference> for our tests:
+        </para>
+        <code language="cs">
+          <![CDATA[
+using (var myTestTimer = new TestTimer()) {
+  var myclass = new MyClass(myTestTimer);
+  
+  myTestTimer.Tick(); // Raise elapsed event
+  Assert.IsTrue(...);
+}
+          ]]>
+        </code>
+        <para>
+          The different overloads of the <codeEntityReference>M:ITimer.TestTimer.Tick(System.Nullable{System.DateTimeOffset})</codeEntityReference> method allow you to raise the event multiple times. The <codeEntityReference>T:ITimer.TestTimer</codeEntityReference> has a constructor argument <codeInline>requireStart</codeInline> that allows you to specify wether you require the timer to be started before it will start raising events or not; this defaults to the latter, making your unittests more concise not having to start the <codeEntityReference>T:ITimer.TestTimer</codeEntityReference> each time. When this value equals <languageKeyword>true</languageKeyword> the event won't be raised by any of the <codeInline>Tick()</codeInline> methods unless <codeEntityReference>M:ITimer.TestTimer.Start</codeEntityReference> is called.
+        </para>
       </content>
     </section>
 
