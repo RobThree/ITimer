@@ -56,7 +56,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-For usage in unittests, see the `TestTimer` below.
+For usage in unittests, see the [`TestTimer`](#testtimer) below.
 
 ## ISignaler
 
