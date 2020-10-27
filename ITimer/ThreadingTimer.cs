@@ -6,7 +6,7 @@ namespace ITimer
     /// <summary>
     /// Provides a wrapper for the <see cref="System.Threading.Timer" /> implementing the <see cref="ISignaler" /> interface.
     /// </summary>
-    public class ThreadingTimer : BaseTimer, ISignaler, IDisposable
+    public class ThreadingTimer : BaseTimer, ISignaler
     {
         private bool _disposed;
         private readonly Timer _timer;

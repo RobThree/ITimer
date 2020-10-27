@@ -168,6 +168,28 @@ namespace ITimer
             _startcount = 0;
             _stopcount = 0;
         }
+
+        #region IDisposable
+        /// <summary>
+        /// Releases all resources used by the current <see cref="ThreadingTimer" />.
+        /// </summary>
+        /// <param name="disposing">
+        ///     <c>true</c> to release both managed and unmanaged resources; <c>false</c> to release only unmanaged resources.
+        /// </param>
+        protected virtual void Dispose(bool disposing)
+        {
+            //NOP
+        }
+
+        /// <summary>
+        /// Releases all resources used by the current <see cref="ThreadingTimer" />.
+        /// </summary>
+        public void Dispose()
+        {
+            Dispose(disposing: true);
+            GC.SuppressFinalize(this);
+        }
+        #endregion
     }
 
     /// <summary>

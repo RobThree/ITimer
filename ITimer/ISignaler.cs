@@ -12,7 +12,7 @@ namespace ITimer
     /// and <see cref="ISignaler" /> as interface name. If you have any better suggestions, please let us know and
     /// we'll consider it for the next major version.
     /// </remarks>
-    public interface ISignaler
+    public interface ISignaler : IDisposable
     {
         /// <summary>
         /// Occurs when the interval elapses.

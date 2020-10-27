@@ -7,7 +7,7 @@ namespace ITimer
     /// <summary>
     /// Provides a wrapper for the <see cref="System.Timers.Timer" /> implementing the <see cref="ISignaler" /> interface.
     /// </summary>
-    public class SystemTimer : BaseTimer, ISignaler, IDisposable
+    public class SystemTimer : BaseTimer, ISignaler
     {
         private bool _disposed;
         private readonly Timer _timer;

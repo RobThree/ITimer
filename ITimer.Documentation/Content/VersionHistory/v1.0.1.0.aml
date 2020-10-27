@@ -1,0 +1,30 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="0ca6b009-fe8b-4dcf-b4a4-8d5e4beff7c1" revisionNumber="1">
+  <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <introduction>
+      <para>
+        Version 1.0.1 was released on 2020-10-27.
+      </para>
+    </introduction>
+
+    <section>
+      <title>Changes in This Release</title>
+      <content>
+
+        <list class="bullet">
+          <listItem>
+            <para>
+              <codeEntityReference>T:ITimer.ISignaler</codeEntityReference> now implements <codeEntityReference>T:System.IDisposable</codeEntityReference> instead of the timers.</para>
+          </listItem>
+
+        </list>
+
+      </content>
+    </section>
+
+    <relatedTopics>
+      <link xlink:href="09c91a5b-a188-4372-911c-3a41d44605e2" />
+    </relatedTopics>
+
+  </developerConceptualDocument>
+</topic>
