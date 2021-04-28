@@ -35,6 +35,12 @@ namespace ITimer
         void Start();
 
         /// <summary>
+        /// Starts raising the <see cref="Elapsed" /> event with at the specified interval.
+        /// </summary>
+        /// <param name="interval">The time interval between raising the <see cref="BaseTimer.Elapsed" /> event.</param>
+        void Start(TimeSpan interval);
+
+        /// <summary>
         /// Stops raising the <see cref="Elapsed" /> event
         /// </summary>
 #pragma warning disable CA1716 // Identifiers should not match keywords

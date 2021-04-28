@@ -38,7 +38,7 @@ namespace ITimer
         private int _tickcount;
         private int _startcount;
         private int _stopcount;
-        private bool _requirestart;
+        private readonly bool _requirestart;
         private bool _started;
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace ITimer
         /// <param name="timeProvider">The default <see cref="BaseTimer.DefaultTimeProvider" /> to use.</param>
         /// <param name="requireStart">
         /// When <c>true</c>, the timer will not raise the <see cref="BaseTimer.Elapsed" /> event unless the timer
-        /// has been started using the <see cref="Start" /> method. When <c>false</c> the timer doesn't need to be
+        /// has been started using the <see cref="Start()" /> method. When <c>false</c> the timer doesn't need to be
         /// started.
         /// </param>
         /// <param name="interval">
@@ -74,7 +74,7 @@ namespace ITimer
         /// will be set to this value. When <c>null</c>, the <see cref="TestTimer" />'s default time provider is used.
         /// </param>
         /// <exception cref="InvalidOperationException">
-        /// Thrown when the timer was constructed with the <c>requireStart</c> argument set to <c>true</c> and the <see cref="Start" />
+        /// Thrown when the timer was constructed with the <c>requireStart</c> argument set to <c>true</c> and the <see cref="Start()" />
         /// method has not been invoked before invoking this method.
         /// </exception>
         public void Tick(DateTimeOffset? signalTime = null) => Tick(1, (i) => signalTime ?? TimeProvider.Invoke());
@@ -89,7 +89,7 @@ namespace ITimer
         /// </param>
         /// <exception cref="ArgumentOutOfRangeException">Thrown when the number of ticks is less than zero.</exception>
         /// <exception cref="InvalidOperationException">
-        /// Thrown when the timer was constructed with the <c>requireStart</c> argument set to <c>true</c> and the <see cref="Start" />
+        /// Thrown when the timer was constructed with the <c>requireStart</c> argument set to <c>true</c> and the <see cref="Start()" />
         /// method has not been invoked before invoking this method.
         /// </exception>
         public void Tick(int ticks, Func<int, DateTimeOffset> timeProvider = null)
@@ -113,7 +113,7 @@ namespace ITimer
         /// <param name="signalTimes"></param>
         /// <exception cref="ArgumentNullException">Thrown when <paramref name="signalTimes"/> is <c>null</c>.</exception>
         /// <exception cref="InvalidOperationException">
-        /// Thrown when the timer was constructed with the <c>requireStart</c> argument set to <c>true</c> and the <see cref="Start" />
+        /// Thrown when the timer was constructed with the <c>requireStart</c> argument set to <c>true</c> and the <see cref="Start()" />
         /// method has not been invoked before invoking this method.
         /// </exception>
         public void Tick(IEnumerable<DateTimeOffset> signalTimes)
@@ -148,6 +148,19 @@ namespace ITimer
             Interlocked.Increment(ref _startcount);
             Started?.Invoke(this, new StartedEventArgs());
         }
+
+        /// <summary>
+        /// 'Starts' the timer.
+        /// </summary>
+        /// <remarks>
+        /// The <see cref="BaseTimer.Elapsed" /> event won't be automatically raised as normal
+        /// timers do. To raise the event, one of the <c>Tick</c> overloads need to be invoked. The <see cref="Started" />
+        /// event will be raised to keep track of a <see cref="TestTimer" /> being started. Also, when the <see cref="TestTimer" />
+        /// was constructed with the <c>requireStart</c> argument set to <c>true</c>, this method needs to be invoked before
+        /// invoking one of the <c>Tick</c> overloads otherwise a <see cref="InvalidOperationException" /> will be thrown.
+        /// </remarks>
+        /// <param name="interval">The time interval between raising the <see cref="BaseTimer.Elapsed" /> event.</param>
+        public void Start(TimeSpan interval) => Start();
 
         /// <summary>
         /// 'Stops' the timer.

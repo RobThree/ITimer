@@ -22,6 +22,11 @@ namespace ITimer
         private static readonly Func<DateTimeOffset> DEFAULTTIMEPROVIDER = () => DateTimeOffset.Now;
 
         /// <summary>
+        /// Defines the default interval for timers
+        /// </summary>
+        public static readonly TimeSpan DEFAULTINTERVAL = TimeSpan.FromMinutes(1);
+
+        /// <summary>
         /// Returns the default time provider; a function that returns the time to determine the signaltime
         /// for the <see cref="TimerElapsedEventArgs" /> used in the <see cref="Elapsed" /> event.
         /// </summary>
@@ -31,7 +36,7 @@ namespace ITimer
         /// <summary>
         /// Gets the interval at which to raise the <see cref="Elapsed" /> event.
         /// </summary>
-        public TimeSpan Interval { get; private set; }
+        public TimeSpan Interval { get; protected set; }
 
         /// <summary>
         /// Gets or sets a bool indicating whether the timer should raise the <see cref="Elapsed" /> event only

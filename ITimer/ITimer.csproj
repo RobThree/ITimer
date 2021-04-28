@@ -5,17 +5,17 @@
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <Authors>RobIII</Authors>
     <Company>Devcorner.nl</Company>
-    <Copyright>Copyright © 2020 Devcorner.nl</Copyright>
+    <Copyright>Copyright © 2020 - 2021 Devcorner.nl</Copyright>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <PackageProjectUrl>https://github.com/RobThree/ITimer</PackageProjectUrl>
     <RepositoryUrl>https://github.com/RobThree/ITimer</RepositoryUrl>
     <RepositoryType>Git</RepositoryType>
     <PackageTags>timer clock</PackageTags>
-    <Version>1.0.1</Version>
+    <Version>1.0.2</Version>
     <Description>Provides a testable abstraction and alternative to System.Threading.Timer and System.Timers.Timer</Description>
     <PackageIcon>logo.png</PackageIcon>
     <Configurations>Debug;Release;ReleaseWithDocumentation</Configurations>
-    <PackageReleaseNotes>Move IDisposable from timers to interface</PackageReleaseNotes>
+    <PackageReleaseNotes>Added overload that allows to set the interval during Start()</PackageReleaseNotes>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseWithDocumentation|AnyCPU'">

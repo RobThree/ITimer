@@ -13,6 +13,22 @@ namespace ITimer
         private readonly Timer _timer;
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="SystemTimer" /> class, using the <see cref="BaseTimer.DEFAULTINTERVAL"/>.
+        /// </summary>
+        /// <param name="autoReset">
+        ///     Whether the <see cref="SystemTimer" /> should raise the <see cref="BaseTimer.Elapsed" /> event only once
+        ///     (<c>false</c>) or repeatedly (<c>true</c>).
+        /// </param>
+        /// <param name="timeProvider">
+        ///     When specified, the <c>timeProvider</c> is used to determine the <see cref="TimerElapsedEventArgs.SignalTime" />
+        ///     when the <see cref="BaseTimer.Elapsed" /> event is raised. When no <c>timeProvider</c> is specified the
+        ///     <see cref="BaseTimer.DefaultTimeProvider" /> is used.
+        /// </param>
+        /// <param name="synchronizingObject">The object used to marshal event-handler calls that are issued when an interval has elapsed.</param>
+        public SystemTimer(bool autoReset = true, Func<DateTimeOffset> timeProvider = null, ISynchronizeInvoke synchronizingObject = null)
+            : this(DEFAULTINTERVAL, autoReset, timeProvider, synchronizingObject) { }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="SystemTimer" /> class, using the specified interval.
         /// </summary>
         /// <param name="interval">The time interval between raising the <see cref="BaseTimer.Elapsed" /> event.</param>
@@ -40,6 +56,17 @@ namespace ITimer
         public void Start() => _timer.Start();
 
         /// <summary>
+        /// Starts raising the <see cref="BaseTimer.Elapsed" /> event with at the specified <paramref name="interval"/>.
+        /// </summary>
+        /// <param name="interval">The time interval between raising the <see cref="BaseTimer.Elapsed" /> event.</param>
+        public void Start(TimeSpan interval)
+        {
+            Interval = interval;
+            _timer.Interval = interval.TotalMilliseconds;
+            _timer.Start();
+        }
+
+        /// <summary>
         /// Stops raising the <see cref="BaseTimer.Elapsed" /> event.
         /// </summary>
         public void Stop() => _timer.Stop();
@@ -49,8 +76,8 @@ namespace ITimer
         /// </summary>
         public ISynchronizeInvoke SynchronizingObject
         {
-            get { return _timer.SynchronizingObject; }
-            set { _timer.SynchronizingObject = value; }
+            get => _timer.SynchronizingObject;
+            set => _timer.SynchronizingObject = value;
         }
 
         #region IDisposable

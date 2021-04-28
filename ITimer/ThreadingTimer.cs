@@ -13,6 +13,21 @@ namespace ITimer
         private static readonly TimeSpan _noperiod = TimeSpan.FromMilliseconds(-1);
 
         /// <summary>
+        /// Initializes a new instance of the <see cref="ThreadingTimer" /> class, using the <see cref="BaseTimer.DEFAULTINTERVAL"/>.
+        /// </summary>
+        /// <param name="autoReset">
+        ///     Whether the <see cref="ThreadingTimer" /> should raise the <see cref="BaseTimer.Elapsed" /> event only once
+        ///     (<c>false</c>) or repeatedly (<c>true</c>).
+        /// </param>
+        /// <param name="timeProvider">
+        ///     When specified, the <c>timeProvider</c> is used to determine the <see cref="TimerElapsedEventArgs.SignalTime" />
+        ///     when the <see cref="BaseTimer.Elapsed" /> event is raised. When no <c>timeProvider</c> is specified the
+        ///     <see cref="BaseTimer.DefaultTimeProvider" /> is used.
+        /// </param>
+        public ThreadingTimer(bool autoReset = true, Func<DateTimeOffset> timeProvider = null)
+            : this(DEFAULTINTERVAL, autoReset, timeProvider) { }
+
+        /// <summary>
         /// Initializes a new instance of the <see cref="ThreadingTimer" /> class, using the specified interval.
         /// </summary>
         /// <param name="interval">The time interval between raising the <see cref="BaseTimer.Elapsed" /> event.</param>
@@ -26,15 +41,23 @@ namespace ITimer
         ///     <see cref="BaseTimer.DefaultTimeProvider" /> is used.
         /// </param>
         public ThreadingTimer(TimeSpan interval, bool autoReset = true, Func<DateTimeOffset> timeProvider = null)
-            : base(interval, autoReset, timeProvider)
-        {
-            _timer = new Timer(TimerCallback, null, Timeout.InfiniteTimeSpan, interval);
-        }
+            : base(interval, autoReset, timeProvider) => _timer = new Timer(TimerCallback, null, Timeout.InfiniteTimeSpan, interval);
 
         /// <summary>
         /// Starts raising the <see cref="BaseTimer.Elapsed" /> event.
         /// </summary>
         public void Start() => _timer.Change(Interval, AutoReset ? Interval : _noperiod);
+
+        /// <summary>
+        /// Starts raising the <see cref="BaseTimer.Elapsed" /> event with at the specified <paramref name="interval"/>.
+        /// </summary>
+        /// <param name="interval">The time interval between raising the <see cref="BaseTimer.Elapsed" /> event.</param>
+        public void Start(TimeSpan interval)
+        {
+            Interval = interval;
+            _timer.Change(interval, AutoReset ? Interval : _noperiod);
+        }
+
 
         /// <summary>
         /// Stops raising the <see cref="BaseTimer.Elapsed" /> event.
