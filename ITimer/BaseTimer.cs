@@ -39,7 +39,7 @@ namespace ITimer
         public TimeSpan Interval { get; protected set; }
 
         /// <summary>
-        /// Gets or sets a bool indicating whether the timer should raise the <see cref="Elapsed" /> event only
+        /// Gets a bool indicating whether the timer should raise the <see cref="Elapsed" /> event only
         /// once (<c>false</c>) or repeatedly (<c>true</c>).
         /// </summary>
         public bool AutoReset { get; private set; }
