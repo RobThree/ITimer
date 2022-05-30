@@ -19,7 +19,7 @@ namespace ITimer
         /// </summary>
         public event TimerElapsedEventHandler Elapsed;
 
-        private static readonly Func<DateTimeOffset> DEFAULTTIMEPROVIDER = () => DateTimeOffset.Now;
+        private static readonly Func<DateTimeOffset> _defaulttimeprovider = () => DateTimeOffset.Now;
 
         /// <summary>
         /// Defines the default interval for timers
@@ -31,7 +31,7 @@ namespace ITimer
         /// for the <see cref="TimerElapsedEventArgs" /> used in the <see cref="Elapsed" /> event.
         /// </summary>
         /// <remarks>Uses <see cref="DateTimeOffset.Now" /> but it's implementation may change in the future.</remarks>
-        public static Func<DateTimeOffset> DefaultTimeProvider { get => DEFAULTTIMEPROVIDER; }
+        public static Func<DateTimeOffset> DefaultTimeProvider => _defaulttimeprovider;
 
         /// <summary>
         /// Gets the interval at which to raise the <see cref="Elapsed" /> event.
@@ -66,20 +66,24 @@ namespace ITimer
         /// </param>
         /// <exception cref="ArgumentOutOfRangeException">
         ///     Thrown when the specified <paramref name="interval"/> is less than <see cref="TimeSpan.Zero" /> or 
-        ///     exceeds the maximum time of <see cref="Int32.MaxValue" /> milliseconds.
+        ///     exceeds the maximum time of <see cref="int.MaxValue" /> milliseconds.
         /// </exception>
         public BaseTimer(TimeSpan interval, bool autoReset, Func<DateTimeOffset> timeProvider)
         {
             if (interval < TimeSpan.Zero)
+            {
                 throw new ArgumentOutOfRangeException(nameof(interval));
+            }
 
-            double roundedInterval = Math.Ceiling(interval.TotalMilliseconds);
+            var roundedInterval = Math.Ceiling(interval.TotalMilliseconds);
             if (roundedInterval > int.MaxValue || roundedInterval < 0)
+            {
                 throw new ArgumentOutOfRangeException(nameof(interval));
+            }
 
             Interval = interval;
             AutoReset = autoReset;
-            TimeProvider = timeProvider ?? DEFAULTTIMEPROVIDER;
+            TimeProvider = timeProvider ?? _defaulttimeprovider;
         }
 
         /// <summary>
@@ -88,9 +92,6 @@ namespace ITimer
         /// <param name="e">
         /// The <see cref="TimerElapsedEventArgs" /> to raise the <see cref="Elapsed" /> event with.
         /// </param>
-        protected virtual void OnElapsed(TimerElapsedEventArgs e)
-        {
-            Elapsed?.Invoke(this, e);
-        }
+        protected virtual void OnElapsed(TimerElapsedEventArgs e) => Elapsed?.Invoke(this, e);
     }
 }

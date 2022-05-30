@@ -7,10 +7,10 @@ namespace ITimer.Tests
     [TestClass]
     public class TestTimerTests
     {
-        private static readonly DateTimeOffset TESTVALUE1 = new(2013, 12, 11, 10, 9, 8, 7, TimeSpan.FromHours(6));
-        private static readonly DateTimeOffset TESTVALUE2 = TESTVALUE1.AddDays(1);
-        private static readonly DateTimeOffset TESTVALUE3 = TESTVALUE2.AddMonths(1);
-        private static readonly DateTimeOffset[] TESTVALUES = { TESTVALUE1, TESTVALUE2, TESTVALUE3 };
+        private static readonly DateTimeOffset _testvalue1 = new(2013, 12, 11, 10, 9, 8, 7, TimeSpan.FromHours(6));
+        private static readonly DateTimeOffset _testvalue2 = _testvalue1.AddDays(1);
+        private static readonly DateTimeOffset _testvalue3 = _testvalue2.AddMonths(1);
+        private static readonly DateTimeOffset[] _testvalues = { _testvalue1, _testvalue2, _testvalue3 };
 
         [TestMethod]
         public void TestTimer_UsesCorrect_Defaults()
@@ -26,17 +26,17 @@ namespace ITimer.Tests
         public void TestTimer_Tick_ProvidesCorrect_SignalTime()
         {
             var result = DateTimeOffset.MinValue;
-            var target = new TestTimer(() => TESTVALUE1);
+            var target = new TestTimer(() => _testvalue1);
             target.Elapsed += (s, e) => { result = e.SignalTime; };
 
             target.Tick();                          // Use TestTimer timeprovider from constructor
-            Assert.AreEqual(TESTVALUE1, result);
+            Assert.AreEqual(_testvalue1, result);
 
-            target.Tick(TESTVALUE2);                // Use provided value
-            Assert.AreEqual(TESTVALUE2, result);
+            target.Tick(_testvalue2);                // Use provided value
+            Assert.AreEqual(_testvalue2, result);
 
-            target.Tick(1, (i) => TESTVALUE3);      // Use provided timeprovider
-            Assert.AreEqual(TESTVALUE3, result);
+            target.Tick(1, (i) => _testvalue3);      // Use provided timeprovider
+            Assert.AreEqual(_testvalue3, result);
         }
 
         [TestMethod]
@@ -116,13 +116,13 @@ namespace ITimer.Tests
             var target = new TestTimer();
 
             target.Elapsed += (s, e) => { results.Add(new KeyValuePair<int, DateTimeOffset>(((TestTimerElapsedEventArgs)e).TickCount, e.SignalTime)); };
-            target.Tick(3, (i) => TESTVALUES[i]);
+            target.Tick(3, (i) => _testvalues[i]);
 
             Assert.AreEqual(3, results.Count);
             for (var i = 0; i < 3; i++)
             {
                 Assert.AreEqual(results[i].Key, i + 1);
-                Assert.AreEqual(results[i].Value, TESTVALUES[i]);
+                Assert.AreEqual(results[i].Value, _testvalues[i]);
             }
         }
 
@@ -134,13 +134,13 @@ namespace ITimer.Tests
             var target = new TestTimer();
 
             target.Elapsed += (s, e) => { results.Add(new KeyValuePair<int, DateTimeOffset>(((TestTimerElapsedEventArgs)e).TickCount, e.SignalTime)); };
-            target.Tick(TESTVALUES);
+            target.Tick(_testvalues);
 
             Assert.AreEqual(3, results.Count);
             for (var i = 0; i < 3; i++)
             {
                 Assert.AreEqual(results[i].Key, i + 1);
-                Assert.AreEqual(results[i].Value, TESTVALUES[i]);
+                Assert.AreEqual(results[i].Value, _testvalues[i]);
             }
         }
 

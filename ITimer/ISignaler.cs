@@ -43,9 +43,7 @@ namespace ITimer
         /// <summary>
         /// Stops raising the <see cref="Elapsed" /> event
         /// </summary>
-#pragma warning disable CA1716 // Identifiers should not match keywords
         void Stop();
-#pragma warning restore CA1716 // Identifiers should not match keywords
 
         /// <summary>
         /// Gets a value indicating whether the timer is enabled
