@@ -1,43 +1,44 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
-    <TargetFramework>netstandard2.0</TargetFramework>
-    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-    <Authors>RobIII</Authors>
-    <Company>Devcorner.nl</Company>
-    <Copyright>Copyright © 2020 - 2021 Devcorner.nl</Copyright>
-    <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <PackageProjectUrl>https://github.com/RobThree/ITimer</PackageProjectUrl>
-    <RepositoryUrl>https://github.com/RobThree/ITimer</RepositoryUrl>
-    <RepositoryType>Git</RepositoryType>
-    <PackageTags>timer clock</PackageTags>
-    <Version>1.0.2</Version>
-    <Description>Provides a testable abstraction and alternative to System.Threading.Timer and System.Timers.Timer</Description>
-    <PackageIcon>logo.png</PackageIcon>
-    <Configurations>Debug;Release;ReleaseWithDocumentation</Configurations>
-    <PackageReleaseNotes>Added overload that allows to set the interval during Start()</PackageReleaseNotes>
-  </PropertyGroup>
+	<PropertyGroup>
+		<TargetFramework>netstandard2.0</TargetFramework>
+		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+		<Authors>RobIII</Authors>
+		<Company>Devcorner.nl</Company>
+		<Copyright>Copyright © 2020 - 2022 Devcorner.nl</Copyright>
+		<PackageLicenseExpression>MIT</PackageLicenseExpression>
+		<PackageProjectUrl>https://github.com/RobThree/ITimer</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/RobThree/ITimer</RepositoryUrl>
+		<RepositoryType>Git</RepositoryType>
+		<PackageTags>timer clock</PackageTags>
+		<Version>1.0.3</Version>
+		<Description>Provides a testable abstraction and alternative to System.Threading.Timer and System.Timers.Timer</Description>
+		<PackageIcon>logo.png</PackageIcon>
+		<Configurations>Debug;Release;ReleaseWithDocumentation</Configurations>
+		<PackageReleaseNotes>Added overload that allows to set the interval during Start()</PackageReleaseNotes>
+		<LangVersion>latest</LangVersion>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseWithDocumentation|AnyCPU'">
-    <DocumentationFile>bin\release\ITimer.xml</DocumentationFile>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseWithDocumentation|AnyCPU'">
+		<DocumentationFile>bin\release\ITimer.xml</DocumentationFile>
+	</PropertyGroup>
 
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
-    <DocumentationFile>bin\release\ITimer.xml</DocumentationFile>
-  </PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<DocumentationFile>bin\release\ITimer.xml</DocumentationFile>
+	</PropertyGroup>
 
-  <ItemGroup>
-    <None Include="..\logo.png">
-      <Pack>True</Pack>
-      <PackagePath></PackagePath>
-    </None>
-  </ItemGroup>
+	<ItemGroup>
+		<None Include="..\logo.png">
+			<Pack>True</Pack>
+			<PackagePath></PackagePath>
+		</None>
+	</ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="3.3.0">
-      <PrivateAssets>all</PrivateAssets>
-      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
-    </PackageReference>
-  </ItemGroup>
+	<ItemGroup>
+		<PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="6.0.0">
+			<PrivateAssets>all</PrivateAssets>
+			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+		</PackageReference>
+	</ItemGroup>
 
 </Project>

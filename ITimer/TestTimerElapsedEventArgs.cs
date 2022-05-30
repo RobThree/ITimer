@@ -19,8 +19,6 @@ namespace ITimer
         /// <param name="signalTime">The date/time when the Elapsed event was raised.</param>
         protected internal TestTimerElapsedEventArgs(int tickCount, DateTimeOffset signalTime)
             : base(signalTime)
-        {
-            TickCount = tickCount;
-        }
+            => TickCount = tickCount;
     }
 }

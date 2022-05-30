@@ -7,7 +7,7 @@ namespace ITimer.Tests
     [TestClass]
     public class TestTimerTests
     {
-        private static readonly DateTimeOffset TESTVALUE1 = new DateTimeOffset(2013, 12, 11, 10, 9, 8, 7, TimeSpan.FromHours(6));
+        private static readonly DateTimeOffset TESTVALUE1 = new(2013, 12, 11, 10, 9, 8, 7, TimeSpan.FromHours(6));
         private static readonly DateTimeOffset TESTVALUE2 = TESTVALUE1.AddDays(1);
         private static readonly DateTimeOffset TESTVALUE3 = TESTVALUE2.AddMonths(1);
         private static readonly DateTimeOffset[] TESTVALUES = { TESTVALUE1, TESTVALUE2, TESTVALUE3 };
@@ -119,7 +119,7 @@ namespace ITimer.Tests
             target.Tick(3, (i) => TESTVALUES[i]);
 
             Assert.AreEqual(3, results.Count);
-            for (int i = 0; i < 3; i++)
+            for (var i = 0; i < 3; i++)
             {
                 Assert.AreEqual(results[i].Key, i + 1);
                 Assert.AreEqual(results[i].Value, TESTVALUES[i]);
@@ -137,7 +137,7 @@ namespace ITimer.Tests
             target.Tick(TESTVALUES);
 
             Assert.AreEqual(3, results.Count);
-            for (int i = 0; i < 3; i++)
+            for (var i = 0; i < 3; i++)
             {
                 Assert.AreEqual(results[i].Key, i + 1);
                 Assert.AreEqual(results[i].Value, TESTVALUES[i]);
@@ -166,6 +166,21 @@ namespace ITimer.Tests
         {
             var target = new TestTimer(requireStart: true);
             target.Tick();  // Timer is not "started", requirestart is true, we should get an exception
+        }
+
+        [TestMethod]
+        public void TestTimer_EnabledPropertyReflectsState()
+        {
+            var target = new TestTimer();
+            Assert.IsFalse(target.Enabled);
+            target.Start();
+            Assert.IsTrue(target.Enabled);
+            target.Start(); // Starting twice shouldn't matter
+            Assert.IsTrue(target.Enabled);
+            target.Stop();
+            Assert.IsFalse(target.Enabled);
+            target.Stop();  // Stopping twice shouldn't matter
+            Assert.IsFalse(target.Enabled);
         }
     }
 }

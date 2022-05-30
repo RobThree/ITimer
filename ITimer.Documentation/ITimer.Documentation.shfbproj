@@ -13,7 +13,7 @@
     <RootNamespace>ITimer.Documentation</RootNamespace>
     <Name>ITimer.Documentation</Name>
     <!-- SHFB properties -->
-    <FrameworkVersion>Cross-platform (.NET Core/.NET Standard)</FrameworkVersion>
+    <FrameworkVersion>.NET Core/.NET Standard/.NET 5.0+</FrameworkVersion>
     <OutputPath>.\Help\</OutputPath>
     <HtmlHelpName>ITimer.Documentation</HtmlHelpName>
     <Language>en-US</Language>
@@ -82,6 +82,8 @@
   <ItemGroup>
     <None Include="Content\VersionHistory\v1.0.0.0.aml" />
     <None Include="Content\VersionHistory\v1.0.1.0.aml" />
+    <None Include="Content\VersionHistory\v1.0.2.0.aml" />
+    <None Include="Content\VersionHistory\v1.0.3.aml" />
     <None Include="Content\VersionHistory\VersionHistory.aml" />
     <None Include="Content\Welcome.aml" />
   </ItemGroup>

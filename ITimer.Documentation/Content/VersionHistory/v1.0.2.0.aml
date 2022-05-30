@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="e442f859-47a1-4477-9794-6d7e1ef9614c" revisionNumber="1">
+	<developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+		<introduction>
+			<para>
+				Version 1.0.2 was released on 2021-04-28.
+			</para>
+		</introduction>
+
+		<section>
+			<title>Changes in This Release</title>
+			<content>
+
+				<list class="bullet">
+					<listItem>
+						<para>
+							Added overload that allows to set the interval during <codeEntityReference>M:ITimer.ISignaler.Start(System.TimeSpan)</codeEntityReference>.
+						</para>
+					</listItem>
+
+				</list>
+
+			</content>
+		</section>
+
+		<relatedTopics>
+			<link xlink:href="09c91a5b-a188-4372-911c-3a41d44605e2" />
+		</relatedTopics>
+
+	</developerConceptualDocument>
+</topic>

@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<topic id="9c7d1851-d0f2-4408-be37-a43eeeaffbc7" revisionNumber="1">
+	<developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+		<introduction>
+			<para>
+				Version 1.0.3 was released on 2022-05-30.
+			</para>
+		</introduction>
+
+		<section>
+			<title>Changes in This Release</title>
+			<content>
+
+				<list class="bullet">
+					<listItem>
+						<para>
+							Added <codeEntityReference>P:ITimer.ISignaler.Enabled</codeEntityReference> property on <codeEntityReference>T:ITimer.ISignaler</codeEntityReference>.
+						</para>
+					</listItem>
+
+				</list>
+
+			</content>
+		</section>
+
+		<relatedTopics>
+			<link xlink:href="09c91a5b-a188-4372-911c-3a41d44605e2" />
+		</relatedTopics>
+
+	</developerConceptualDocument>
+</topic>

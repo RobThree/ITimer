@@ -61,10 +61,7 @@ namespace ITimer
         /// values have no effect other than being reflected in the <see cref="TestTimer" />'s corresponding properties.
         /// </remarks>
         public TestTimer(Func<DateTimeOffset> timeProvider = null, bool requireStart = false, TimeSpan? interval = null, bool autoReset = false)
-            : base(interval ?? TimeSpan.Zero, autoReset, timeProvider)
-        {
-            _requirestart = requireStart;
-        }
+            : base(interval ?? TimeSpan.Zero, autoReset, timeProvider) => _requirestart = requireStart;
 
         /// <summary>
         /// Causes the timer to 'tick', i.e. to raise the <see cref="BaseTimer.Elapsed" /> event.
@@ -95,14 +92,20 @@ namespace ITimer
         public void Tick(int ticks, Func<int, DateTimeOffset> timeProvider = null)
         {
             if (ticks < 0)
+            {
                 throw new ArgumentOutOfRangeException(nameof(ticks));
+            }
 
             for (var i = 0; i < ticks; i++)
             {
                 if (timeProvider != null)
+                {
                     RaiseElapsed(timeProvider(i));
+                }
                 else
+                {
                     RaiseElapsed(TimeProvider.Invoke());
+                }
             }
         }
 
@@ -119,16 +122,23 @@ namespace ITimer
         public void Tick(IEnumerable<DateTimeOffset> signalTimes)
         {
             if (signalTimes == null)
+            {
                 throw new ArgumentNullException(nameof(signalTimes));
+            }
 
             foreach (var s in signalTimes)
+            {
                 RaiseElapsed(s);
+            }
         }
 
         private void RaiseElapsed(DateTimeOffset signalTime)
         {
             if (_requirestart && !_started)
+            {
                 throw new InvalidOperationException("Timer must be started");
+            }
+
             OnElapsed(new TestTimerElapsedEventArgs(Interlocked.Increment(ref _tickcount), signalTime));
         }
 
@@ -160,7 +170,8 @@ namespace ITimer
         /// invoking one of the <c>Tick</c> overloads otherwise a <see cref="InvalidOperationException" /> will be thrown.
         /// </remarks>
         /// <param name="interval">The time interval between raising the <see cref="BaseTimer.Elapsed" /> event.</param>
-        public void Start(TimeSpan interval) => Start();
+        public void Start(TimeSpan interval)
+            => Start();
 
         /// <summary>
         /// 'Stops' the timer.
@@ -181,6 +192,11 @@ namespace ITimer
             _startcount = 0;
             _stopcount = 0;
         }
+
+        /// <summary>
+        /// Gets a value indicating whether the timer is enabled
+        /// </summary>
+        public bool Enabled => _started;
 
         #region IDisposable
         /// <summary>

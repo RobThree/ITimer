@@ -45,15 +45,19 @@ namespace ITimer
         public SystemTimer(TimeSpan interval, bool autoReset = true, Func<DateTimeOffset> timeProvider = null, ISynchronizeInvoke synchronizingObject = null)
             : base(interval, autoReset, timeProvider)
         {
-            _timer = new Timer(Interval.TotalMilliseconds) { AutoReset = AutoReset };
-            _timer.SynchronizingObject = synchronizingObject;
+            _timer = new Timer(Interval.TotalMilliseconds)
+            {
+                AutoReset = AutoReset,
+                SynchronizingObject = synchronizingObject
+            };
             _timer.Elapsed += (s, e) => OnElapsed(new TimerElapsedEventArgs(TimeProvider?.Invoke() ?? e.SignalTime));
         }
 
         /// <summary>
         /// Starts raising the <see cref="BaseTimer.Elapsed" /> event.
         /// </summary>
-        public void Start() => _timer.Start();
+        public void Start()
+            => Start(Interval);
 
         /// <summary>
         /// Starts raising the <see cref="BaseTimer.Elapsed" /> event with at the specified <paramref name="interval"/>.
@@ -69,7 +73,8 @@ namespace ITimer
         /// <summary>
         /// Stops raising the <see cref="BaseTimer.Elapsed" /> event.
         /// </summary>
-        public void Stop() => _timer.Stop();
+        public void Stop()
+            => _timer.Stop();
 
         /// <summary>
         /// Gets or sets the object used to marshal event-handler calls that are issued when an interval has elapsed.
@@ -79,6 +84,11 @@ namespace ITimer
             get => _timer.SynchronizingObject;
             set => _timer.SynchronizingObject = value;
         }
+
+        /// <summary>
+        /// Gets a value indicating whether the timer is enabled
+        /// </summary>
+        public bool Enabled => _timer.Enabled;
 
         #region IDisposable
         /// <summary>

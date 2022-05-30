@@ -10,6 +10,8 @@ namespace ITimer
     {
         private bool _disposed;
         private readonly Timer _timer;
+        private bool _started;
+        private readonly object _lock = new();
         private static readonly TimeSpan _noperiod = TimeSpan.FromMilliseconds(-1);
 
         /// <summary>
@@ -46,7 +48,8 @@ namespace ITimer
         /// <summary>
         /// Starts raising the <see cref="BaseTimer.Elapsed" /> event.
         /// </summary>
-        public void Start() => _timer.Change(Interval, AutoReset ? Interval : _noperiod);
+        public void Start()
+            => Start(Interval);
 
         /// <summary>
         /// Starts raising the <see cref="BaseTimer.Elapsed" /> event with at the specified <paramref name="interval"/>.
@@ -54,17 +57,34 @@ namespace ITimer
         /// <param name="interval">The time interval between raising the <see cref="BaseTimer.Elapsed" /> event.</param>
         public void Start(TimeSpan interval)
         {
-            Interval = interval;
-            _timer.Change(interval, AutoReset ? Interval : _noperiod);
+            lock (_lock)
+            {
+                Interval = interval;
+                _started = true;
+                _timer.Change(interval, AutoReset ? Interval : _noperiod);
+            }
         }
 
 
         /// <summary>
         /// Stops raising the <see cref="BaseTimer.Elapsed" /> event.
         /// </summary>
-        public void Stop() => _timer.Change(Timeout.InfiniteTimeSpan, _noperiod);
+        public void Stop()
+        {
+            lock (_lock)
+            {
+                _started = false;
+                _timer.Change(Timeout.InfiniteTimeSpan, _noperiod);
+            }
+        }
 
-        private void TimerCallback(object stateInfo) => OnElapsed(new TimerElapsedEventArgs(TimeProvider.Invoke()));
+        /// <summary>
+        /// Gets a value indicating whether the timer is enabled
+        /// </summary>
+        public bool Enabled => _started;
+
+        private void TimerCallback(object stateInfo)
+            => OnElapsed(new TimerElapsedEventArgs(TimeProvider.Invoke()));
 
         #region IDisposable
         /// <summary>
