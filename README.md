@@ -1,6 +1,8 @@
 # <img src="https://raw.githubusercontent.com/RobThree/ITimer/main/logo.png" alt="Logo" width="32" height="32"> ITimer
 Provides a testable abstraction and alternative to `System.Threading.Timer` and `System.Timers.Timer`. Targets netstandard2.0 and higher.
 
+[![Build status](https://ci.appveyor.com/api/projects/status/cfocayl8qvi3d8cl)](https://ci.appveyor.com/project/RobIII/itimer) <a href="https://www.nuget.org/packages/ITimer/"><img src="http://img.shields.io/nuget/v/ITimer.svg?style=flat-square" alt="NuGet version" height="18"></a>
+
 ## Why and how
 Timer related code is, or should I say _used to be_, hard to unittest. When you have timer related code, you (probably) don't want to wait until the timer elapses in your unittest which would in turn make your unittests slower than strictly necessary.
 
