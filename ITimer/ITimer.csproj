@@ -1,7 +1,8 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>netstandard2.0</TargetFramework>
+		<TargetFramework>net60</TargetFramework>
+		<TargetFrameworks>netstandard2.0;net60</TargetFrameworks>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<Authors>RobIII</Authors>
 		<Company>Devcorner.nl</Company>
@@ -11,12 +12,13 @@
 		<RepositoryUrl>https://github.com/RobThree/ITimer</RepositoryUrl>
 		<RepositoryType>Git</RepositoryType>
 		<PackageTags>timer clock</PackageTags>
-		<Version>1.0.3</Version>
+		<Version>1.0.4</Version>
 		<Description>Provides a testable abstraction and alternative to System.Threading.Timer and System.Timers.Timer</Description>
 		<PackageIcon>logo.png</PackageIcon>
 		<Configurations>Debug;Release;ReleaseWithDocumentation</Configurations>
-		<PackageReleaseNotes>Added overload that allows to set the interval during Start()</PackageReleaseNotes>
+		<PackageReleaseNotes>Added PeriodicTimer (a wrapper for System.Threading.PeriodicTimer).</PackageReleaseNotes>
 		<LangVersion>latest</LangVersion>
+		<Nullable>enable</Nullable>
 	</PropertyGroup>
 
 	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseWithDocumentation|AnyCPU'">

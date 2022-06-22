@@ -4,26 +4,26 @@ using System;
 namespace ITimer.Tests;
 
 [TestClass]
-public class ThreadingTimerTests
+public class PeriodicTimerTests
 {
     [TestMethod]
     [ExpectedException(typeof(ArgumentOutOfRangeException))]
-    public void ThreadingTimer_Throws_OnNegativeInterval()
+    public void PeriodicTimer_Throws_OnNegativeInterval()
     {
-        var _ = new ThreadingTimer(TimeSpan.FromTicks(-1));
+        var _ = new PeriodicTimer(TimeSpan.FromTicks(-1));
     }
 
     [TestMethod]
     [ExpectedException(typeof(ArgumentOutOfRangeException))]
-    public void ThreadingTimer_Throws_OnTooBigInterval()
+    public void PeriodicTimer_Throws_OnTooBigInterval()
     {
-        var _ = new ThreadingTimer(TimeSpan.FromTicks(long.MaxValue));
+        var _ = new PeriodicTimer(TimeSpan.FromTicks(long.MaxValue));
     }
 
     [TestMethod]
-    public void ThreadingTimer_EnabledPropertyReflectsState()
+    public void PeriodicTimer_EnabledPropertyReflectsState()
     {
-        var target = new ThreadingTimer();
+        var target = new PeriodicTimer();
         Assert.IsFalse(target.Enabled);
         target.Start();
         Assert.IsTrue(target.Enabled);

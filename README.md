@@ -1,5 +1,5 @@
 # <img src="https://raw.githubusercontent.com/RobThree/ITimer/main/logo.png" alt="Logo" width="32" height="32"> ITimer
-Provides a testable abstraction and alternative to `System.Threading.Timer` and `System.Timers.Timer`. Targets netstandard2.0 and higher.
+Provides a testable abstraction and alternative to `System.Threading.Timer`, `System.Timers.Timer` and `System.Threading.PeriodicTimer`. Targets netstandard2.0 and higher.
 
 [![Build status](https://ci.appveyor.com/api/projects/status/cfocayl8qvi3d8cl)](https://ci.appveyor.com/project/RobIII/itimer) <a href="https://www.nuget.org/packages/ITimer/"><img src="http://img.shields.io/nuget/v/ITimer.svg?style=flat-square" alt="NuGet version" height="18"></a>
 
@@ -8,7 +8,7 @@ Timer related code is, or should I say _used to be_, hard to unittest. When you 
 
 The basis for this library is the [`ISignaler`](ITimer/ISignaler.cs) interface which defines an interface for timers to implement that allow you to replace those timers with the [`TestTimer`](ITimer/TestTimer.cs) in your unittests so you have total control over when the timer fires the `Elapsed` event.
 
-This library provides the two most common timers: [`System.Threading.Timer`](https://docs.microsoft.com/en-us/dotnet/api/system.threading.timer) and [`System.Timers.Timer`](https://docs.microsoft.com/en-us/dotnet/api/system.timers.timer) wrapped in the [`ThreadingTimer`](ITimer/ThreadingTimer.cs) and [`SystemTimer`](ITimer/SystemTimer.cs) classes respectively. Other, custom, timers should be simple to implement by simply implementing the [`ISignaler`](ITimer/ISignaler.cs) interface.
+This library provides the most common timers: [`System.Threading.Timer`](https://docs.microsoft.com/en-us/dotnet/api/system.threading.timer), [`System.Timers.Timer`](https://docs.microsoft.com/en-us/dotnet/api/system.timers.timer) and [`System.Threading.PeriodicTimer`](https://docs.microsoft.com/en-us/dotnet/api/system.threading.periodictimer) wrapped in the [`ThreadingTimer`](ITimer/ThreadingTimer.cs) and [`SystemTimer`](ITimer/SystemTimer.cs) classes respectively. Other, custom, timers should be simple to implement by simply implementing the [`ISignaler`](ITimer/ISignaler.cs) interface.
 
 ## ISignaler? Why not ITimer?
 
@@ -66,9 +66,9 @@ The [`ISignaler`](ITimer/ISignaler.cs) interface defines the `Start()`  and `Sto
 
 ## ThreadingTimer and SystemTimer
 
-As mentioned before, these timers encapsulate (or "wrap") the [`System.Threading.Timer`](https://docs.microsoft.com/en-us/dotnet/api/system.threading.timer) and [`System.Timers.Timer`](https://docs.microsoft.com/en-us/dotnet/api/system.timers.timer) timers and provide a unified interface because they both implement the [`ISignaler`](ITimer/ISignaler.cs) interface. The difference between these two is perhaps best explained by [Jon Skeet](https://jonskeet.uk/csharp/threads/timers.html) (archived version [here](https://archive.is/eXhQS) or [here](https://web.archive.org/web/20190303143427/http://jonskeet.uk/csharp/threads/timers.html)). The [`System.Windows.Forms.Timer`](https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.timer) is not provided by this library but should be simple to implement. 
+As mentioned before, these timers encapsulate (or "wrap") the [`System.Threading.Timer`](https://docs.microsoft.com/en-us/dotnet/api/system.threading.timer) and [`System.Timers.Timer`](https://docs.microsoft.com/en-us/dotnet/api/system.timers.timer) timers and provide a unified interface because they both implement the [`ISignaler`](ITimer/ISignaler.cs) interface. The difference between the first two is perhaps best explained by [Jon Skeet](https://jonskeet.uk/csharp/threads/timers.html) (archived version [here](https://archive.is/eXhQS) or [here](https://web.archive.org/web/20190303143427/http://jonskeet.uk/csharp/threads/timers.html)). The [`System.Windows.Forms.Timer`](https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.timer) is not provided by this library but should be simple to implement. 
 
-Both timers are simplified versions of the underlying timers unified to a single, simple, interface. If you need a more specific implementation then you may want to implement them again in your own class, also implementing the [`ISignaler`](ITimer/ISignaler.cs) interface. 
+All timers provided by this library are simplified versions of the underlying timers unified to a single, simple, interface. If you need a more specific implementation then you may want to implement them again in your own class, also implementing the [`ISignaler`](ITimer/ISignaler.cs) interface. 
 
 ## TestTimer
 

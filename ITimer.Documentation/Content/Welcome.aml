@@ -3,7 +3,7 @@
   <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
     <introduction>
       <para>
-        This library provides a testable abstraction and alternative to <codeEntityReference linkText="System.Threading.Timer">T:System.Threading.Timer</codeEntityReference> and <codeEntityReference linkText="System.Timers.Timer">T:System.Timers.Timer</codeEntityReference> and targets netstandard2.0 and higher.
+        This library provides a testable abstraction and alternative to <codeEntityReference linkText="System.Threading.Timer">T:System.Threading.Timer</codeEntityReference>, <codeEntityReference linkText="System.Timers.Timer">T:System.Timers.Timer</codeEntityReference> and <codeEntityReference linkText="System.Threading.PeriodicTimer">T:System.Threading.PeriodicTimer</codeEntityReference> and targets netstandard2.0 and higher.
       </para>
     </introduction>
 
@@ -17,7 +17,7 @@
           The basis for this library is the <codeEntityReference>T:ITimer.ISignaler</codeEntityReference> interface which defines an interface for timers to implement that allow you to replace those timers with the <codeEntityReference>T:ITimer.TestTimer</codeEntityReference> in your unittests so you have total control over when the timer fires the <codeEntityReference>E:ITimer.ISignaler.Elapsed</codeEntityReference> event.
         </para>
         <para>
-          This library provides the two most common timers: <codeEntityReference linkText="System.Threading.Timer">T:System.Threading.Timer</codeEntityReference> and <codeEntityReference linkText="System.Timers.Timer">T:System.Timers.Timer</codeEntityReference> wrapped in the <codeEntityReference>T:ITimer.ThreadingTimer</codeEntityReference> and <codeEntityReference>T:ITimer.SystemTimer</codeEntityReference> classes respectively. Other, custom, timers should be simple to implement by simply implementing the <codeEntityReference>T:ITimer.ISignaler</codeEntityReference> interface.
+          This library provides the most common timers: <codeEntityReference linkText="System.Threading.Timer">T:System.Threading.Timer</codeEntityReference>, <codeEntityReference linkText="System.Timers.Timer">T:System.Timers.Timer</codeEntityReference> and , <codeEntityReference linkText="System.Threading.PeriodicTimer">T:System.Threading.PeriodicTimer</codeEntityReference> wrapped in the <codeEntityReference>T:ITimer.ThreadingTimer</codeEntityReference>, <codeEntityReference>T:ITimer.SystemTimer</codeEntityReference> and <codeEntityReference>T:ITimer.PeriodicTimer</codeEntityReference> classes respectively. Other, custom, timers should be simple to implement by simply implementing the <codeEntityReference>T:ITimer.ISignaler</codeEntityReference> interface.
         </para>
       </content>
     </section>
@@ -99,7 +99,7 @@ public void ConfigureServices(IServiceCollection services)
       <title>ThreadingTimer and SystemTimer</title>
       <content>
         <para>
-          As mentioned before, these timers encapsulate (or "wrap") the <codeEntityReference linkText="System.Threading.Timer">T:System.Threading.Timer</codeEntityReference> and <codeEntityReference linkText="System.Timers.Timer">T:System.Timers.Timer</codeEntityReference> timers and provide a unified interface because they both implement the <codeEntityReference>T:ITimer.ISignaler</codeEntityReference> interface. The difference between these two is perhaps best explained by <externalLink>
+          As mentioned before, these timers encapsulate (or "wrap") the <codeEntityReference linkText="System.Threading.Timer">T:System.Threading.Timer</codeEntityReference> and <codeEntityReference linkText="System.Timers.Timer">T:System.Timers.Timer</codeEntityReference> timers and provide a unified interface because they both implement the <codeEntityReference>T:ITimer.ISignaler</codeEntityReference> interface. The difference between the first two is perhaps best explained by <externalLink>
             <linkText>Jon Skeet</linkText>
             <linkUri>https://jonskeet.uk/csharp/threads/timers.html</linkUri>
           </externalLink> (archived version <externalLink>
@@ -111,7 +111,7 @@ public void ConfigureServices(IServiceCollection services)
           </externalLink>). The <codeEntityReference linkText="System.Windows.Forms.Timer">T:System.Windows.Forms.Timer</codeEntityReference> is not provided by this library but should be simple to implement.
         </para>
         <para>
-          Both timers are simplified versions of the underlying timers unified to a single, simple, interface. If you need a more specific implementation then you may want to implement them again in your own class, also implementing the <codeEntityReference>T:ITimer.ISignaler</codeEntityReference> interface.
+          All timers provided by this library are simplified versions of the underlying timers unified to a single, simple, interface. If you need a more specific implementation then you may want to implement them again in your own class, also implementing the <codeEntityReference>T:ITimer.ISignaler</codeEntityReference> interface.
         </para>
       </content>
     </section>
