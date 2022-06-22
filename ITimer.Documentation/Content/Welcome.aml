@@ -96,7 +96,7 @@ public void ConfigureServices(IServiceCollection services)
     </section>
 
     <section>
-      <title>ThreadingTimer and SystemTimer</title>
+      <title>ThreadingTimer, SystemTimer and PeriodicTimer</title>
       <content>
         <para>
           As mentioned before, these timers encapsulate (or "wrap") the <codeEntityReference linkText="System.Threading.Timer">T:System.Threading.Timer</codeEntityReference> and <codeEntityReference linkText="System.Timers.Timer">T:System.Timers.Timer</codeEntityReference> timers and provide a unified interface because they both implement the <codeEntityReference>T:ITimer.ISignaler</codeEntityReference> interface. The difference between the first two is perhaps best explained by <externalLink>

@@ -64,7 +64,7 @@ For usage in unittests, see the [`TestTimer`](#testtimer) below.
 
 The [`ISignaler`](ITimer/ISignaler.cs) interface defines the `Start()`  and `Stop()`  methods to start and stop the timer raise the `Elapsed` event. The `Interval` property gets the timer's interval and the `AutoReset` property returns whether or not the timer should fire the event once and then stop, or keep going in a fire event / wait cycle. 
 
-## ThreadingTimer and SystemTimer
+## ThreadingTimer, SystemTimer and PeriodicTimer
 
 As mentioned before, these timers encapsulate (or "wrap") the [`System.Threading.Timer`](https://docs.microsoft.com/en-us/dotnet/api/system.threading.timer) and [`System.Timers.Timer`](https://docs.microsoft.com/en-us/dotnet/api/system.timers.timer) timers and provide a unified interface because they both implement the [`ISignaler`](ITimer/ISignaler.cs) interface. The difference between the first two is perhaps best explained by [Jon Skeet](https://jonskeet.uk/csharp/threads/timers.html) (archived version [here](https://archive.is/eXhQS) or [here](https://web.archive.org/web/20190303143427/http://jonskeet.uk/csharp/threads/timers.html)). The [`System.Windows.Forms.Timer`](https://docs.microsoft.com/en-us/dotnet/api/system.windows.forms.timer) is not provided by this library but should be simple to implement. 
 
