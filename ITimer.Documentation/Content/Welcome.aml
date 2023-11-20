@@ -11,7 +11,10 @@
 			<title>First: Good news! 🎉</title>
 			<content>
 				<para>
-					As of the release of .Net 8 (nov. 14th 2023) Microsoft provides the <externalLink>
+					As of <externalLink>
+						<linkText>the release of .Net 8</linkText>
+						<linkUri>https://devblogs.microsoft.com/dotnet/announcing-dotnet-8-preview-4/#introducing-time-abstraction</linkUri>
+					</externalLink> (nov. 14th 2023) Microsoft provides the <externalLink>
 						<linkText>TimeProvider class</linkText>
 						<linkUri>https://learn.microsoft.com/en-us/dotnet/api/system.timeprovider</linkUri>
 					</externalLink> and <externalLink>
