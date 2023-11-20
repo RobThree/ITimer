@@ -1,42 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <topic id="f040de3f-48bf-4692-bd45-e7ae3115b34d" revisionNumber="1">
-  <developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <introduction>
-      <para>
-        This library provides a testable abstraction and alternative to <codeEntityReference linkText="System.Threading.Timer">T:System.Threading.Timer</codeEntityReference>, <codeEntityReference linkText="System.Timers.Timer">T:System.Timers.Timer</codeEntityReference> and <codeEntityReference linkText="System.Threading.PeriodicTimer">T:System.Threading.PeriodicTimer</codeEntityReference> and targets netstandard2.0 and higher.
-      </para>
-    </introduction>
+	<developerConceptualDocument xmlns="http://ddue.schemas.microsoft.com/authoring/2003/5" xmlns:xlink="http://www.w3.org/1999/xlink">
+		<introduction>
+			<para>
+				This library provides a testable abstraction and alternative to <codeEntityReference linkText="System.Threading.Timer">T:System.Threading.Timer</codeEntityReference>, <codeEntityReference linkText="System.Timers.Timer">T:System.Timers.Timer</codeEntityReference> and <codeEntityReference linkText="System.Threading.PeriodicTimer">T:System.Threading.PeriodicTimer</codeEntityReference> and targets netstandard2.0 and higher.
+			</para>
+		</introduction>
 
-    <section>
-      <title>Why and how</title>
-      <content>
-        <para>
-          Timer related code is, or should I say <legacyItalic>used to be</legacyItalic>, hard to unittest. When you have timer related code, you (probably) don't want to wait until the timer elapses in your unittest which would in turn make your unittests slower than strictly necessary.
-        </para>
-        <para>
-          The basis for this library is the <codeEntityReference>T:ITimer.ISignaler</codeEntityReference> interface which defines an interface for timers to implement that allow you to replace those timers with the <codeEntityReference>T:ITimer.TestTimer</codeEntityReference> in your unittests so you have total control over when the timer fires the <codeEntityReference>E:ITimer.ISignaler.Elapsed</codeEntityReference> event.
-        </para>
-        <para>
-          This library provides the most common timers: <codeEntityReference linkText="System.Threading.Timer">T:System.Threading.Timer</codeEntityReference>, <codeEntityReference linkText="System.Timers.Timer">T:System.Timers.Timer</codeEntityReference> and , <codeEntityReference linkText="System.Threading.PeriodicTimer">T:System.Threading.PeriodicTimer</codeEntityReference> wrapped in the <codeEntityReference>T:ITimer.ThreadingTimer</codeEntityReference>, <codeEntityReference>T:ITimer.SystemTimer</codeEntityReference> and <codeEntityReference>T:ITimer.PeriodicTimer</codeEntityReference> classes respectively. Other, custom, timers should be simple to implement by simply implementing the <codeEntityReference>T:ITimer.ISignaler</codeEntityReference> interface.
-        </para>
-      </content>
-    </section>
+		<section>
+			<title>First: Good news! 🎉</title>
+			<content>
+				<para>
+					As of the release of .Net 8 (nov. 14th 2023) Microsoft provides the <externalLink>
+						<linkText>TimeProvider class</linkText>
+						<linkUri>https://learn.microsoft.com/en-us/dotnet/api/system.timeprovider</linkUri>
+					</externalLink> and <externalLink>
+						<linkText>ITimer interface</linkText>
+						<linkUri>https://learn.microsoft.com/en-us/dotnet/api/system.threading.itimer</linkUri>
+					</externalLink>. A good primer on this topic is over at <externalLink>
+						<linkText>Andrew Lock's site</linkText>
+						<linkUri>https://andrewlock.net/exploring-the-dotnet-8-preview-avoiding-flaky-tests-with-timeprovider-and-itimer/</linkUri>
+					</externalLink> (<externalLink>
+						<linkText>archived version</linkText>
+						<linkUri>https://archive.is/5bZU7</linkUri>
+					</externalLink>). You may want to check that out before continuing. What that means for ITimer? It'll most likely be the end of this library, but that's a good thing. I'll keep supporting it for a while but switching to the Microsoft provided solution shouldn't be too hard.
+				</para>
+			</content>
+		</section>
 
-    <section>
-      <title>ISignaler? Why not ITimer?</title>
-      <content>
-        <para>
-          Agreed, <codeEntityReference>T:ITimer.ISignaler</codeEntityReference> is not the best name. <codeInline>ITimer</codeInline> would have been a much better choice, but that conflicts with the namespace. That would require you to write <codeInline>ITimer.ITimer</codeInline> everywhere this interface is used. And since we wanted a simple package-ID and simple (root) namespace we opted for <codeInline>ITimer</codeInline> as namespace and <codeEntityReference>T:ITimer.ISignaler</codeEntityReference> as interface name. If you have any better suggestions, please let us know and we'll consider it for the next major version.
-        </para>
-      </content>
-    </section>
+		<section>
+			<title>Why and how</title>
+			<content>
+				<para>
+					Timer related code is, or should I say <legacyItalic>used to be</legacyItalic>, hard to unittest. When you have timer related code, you (probably) don't want to wait until the timer elapses in your unittest which would in turn make your unittests slower than strictly necessary.
+				</para>
+				<para>
+					The basis for this library is the <codeEntityReference>T:ITimer.ISignaler</codeEntityReference> interface which defines an interface for timers to implement that allow you to replace those timers with the <codeEntityReference>T:ITimer.TestTimer</codeEntityReference> in your unittests so you have total control over when the timer fires the <codeEntityReference>E:ITimer.ISignaler.Elapsed</codeEntityReference> event.
+				</para>
+				<para>
+					This library provides the most common timers: <codeEntityReference linkText="System.Threading.Timer">T:System.Threading.Timer</codeEntityReference>, <codeEntityReference linkText="System.Timers.Timer">T:System.Timers.Timer</codeEntityReference> and , <codeEntityReference linkText="System.Threading.PeriodicTimer">T:System.Threading.PeriodicTimer</codeEntityReference> wrapped in the <codeEntityReference>T:ITimer.ThreadingTimer</codeEntityReference>, <codeEntityReference>T:ITimer.SystemTimer</codeEntityReference> and <codeEntityReference>T:ITimer.PeriodicTimer</codeEntityReference> classes respectively. Other, custom, timers should be simple to implement by simply implementing the <codeEntityReference>T:ITimer.ISignaler</codeEntityReference> interface.
+				</para>
+			</content>
+		</section>
 
-    <section>
-      <title>Quickstart</title>
-      <content>
-        <para>In your code:</para>
-        <code language="cs">
-          <![CDATA[
+		<section>
+			<title>ISignaler? Why not ITimer?</title>
+			<content>
+				<para>
+					Agreed, <codeEntityReference>T:ITimer.ISignaler</codeEntityReference> is not the best name. <codeInline>ITimer</codeInline> would have been a much better choice, but that conflicts with the namespace. That would require you to write <codeInline>ITimer.ITimer</codeInline> everywhere this interface is used. And since we wanted a simple package-ID and simple (root) namespace we opted for <codeInline>ITimer</codeInline> as namespace and <codeEntityReference>T:ITimer.ISignaler</codeEntityReference> as interface name. If you have any better suggestions, please let us know and we'll consider it for the next major version.
+				</para>
+			</content>
+		</section>
+
+		<section>
+			<title>Quickstart</title>
+			<content>
+				<para>In your code:</para>
+				<code language="cs">
+					<![CDATA[
 public class MyClass
 {
     private readonly ISignaler _timer;
@@ -66,12 +87,12 @@ using (var myTimer = new SystemTimer()) {
   //...
 }
           ]]>
-        </code>
-        <para>
-          Or, even better, using Dependency Injection:
-        </para>
-        <code language="cs">
-          <![CDATA[
+				</code>
+				<para>
+					Or, even better, using Dependency Injection:
+				</para>
+				<code language="cs">
+					<![CDATA[
 public void ConfigureServices(IServiceCollection services)
 {
     // Register SystemTimer as ISignaler
@@ -79,60 +100,60 @@ public void ConfigureServices(IServiceCollection services)
     // ...
 }
           ]]>
-        </code>
-        <para>
-          For usage in unittests, see the <codeEntityReference>T:ITimer.TestTimer</codeEntityReference> below.
-        </para>
-      </content>
-    </section>
+				</code>
+				<para>
+					For usage in unittests, see the <codeEntityReference>T:ITimer.TestTimer</codeEntityReference> below.
+				</para>
+			</content>
+		</section>
 
-    <section>
-      <title>ISignaler</title>
-      <content>
-        <para>
-          The <codeEntityReference>T:ITimer.ISignaler</codeEntityReference> interface defines the <codeEntityReference>M:ITimer.ISignaler.Start</codeEntityReference> and <codeEntityReference>M:ITimer.ISignaler.Stop</codeEntityReference> methods to start and stop the timer raise the <codeEntityReference>E:ITimer.ISignaler.Elapsed</codeEntityReference> event. The <codeEntityReference>P:ITimer.ISignaler.Interval</codeEntityReference> property gets the timer's interval and the <codeEntityReference>P:ITimer.ISignaler.AutoReset</codeEntityReference> property returns whether or not the timer should fire the event once and then stop, or keep going in a fire event / wait cycle.
-        </para>
-      </content>
-    </section>
+		<section>
+			<title>ISignaler</title>
+			<content>
+				<para>
+					The <codeEntityReference>T:ITimer.ISignaler</codeEntityReference> interface defines the <codeEntityReference>M:ITimer.ISignaler.Start</codeEntityReference> and <codeEntityReference>M:ITimer.ISignaler.Stop</codeEntityReference> methods to start and stop the timer raise the <codeEntityReference>E:ITimer.ISignaler.Elapsed</codeEntityReference> event. The <codeEntityReference>P:ITimer.ISignaler.Interval</codeEntityReference> property gets the timer's interval and the <codeEntityReference>P:ITimer.ISignaler.AutoReset</codeEntityReference> property returns whether or not the timer should fire the event once and then stop, or keep going in a fire event / wait cycle.
+				</para>
+			</content>
+		</section>
 
-    <section>
-      <title>ThreadingTimer, SystemTimer and PeriodicTimer</title>
-      <content>
-        <para>
-          As mentioned before, these timers encapsulate (or "wrap") the <codeEntityReference linkText="System.Threading.Timer">T:System.Threading.Timer</codeEntityReference> and <codeEntityReference linkText="System.Timers.Timer">T:System.Timers.Timer</codeEntityReference> timers and provide a unified interface because they both implement the <codeEntityReference>T:ITimer.ISignaler</codeEntityReference> interface. The difference between the first two is perhaps best explained by <externalLink>
-            <linkText>Jon Skeet</linkText>
-            <linkUri>https://jonskeet.uk/csharp/threads/timers.html</linkUri>
-          </externalLink> (archived version <externalLink>
-            <linkText>here</linkText>
-            <linkUri>https://archive.is/eXhQS</linkUri>
-          </externalLink> or <externalLink>
-            <linkText>here</linkText>
-            <linkUri>https://web.archive.org/web/20190303143427/http://jonskeet.uk/csharp/threads/timers.html</linkUri>
-          </externalLink>). The <codeEntityReference linkText="System.Windows.Forms.Timer">T:System.Windows.Forms.Timer</codeEntityReference> is not provided by this library but should be simple to implement.
-        </para>
-        <para>
-          All timers provided by this library are simplified versions of the underlying timers unified to a single, simple, interface. If you need a more specific implementation then you may want to implement them again in your own class, also implementing the <codeEntityReference>T:ITimer.ISignaler</codeEntityReference> interface.
-        </para>
-      </content>
-    </section>
+		<section>
+			<title>ThreadingTimer, SystemTimer and PeriodicTimer</title>
+			<content>
+				<para>
+					As mentioned before, these timers encapsulate (or "wrap") the <codeEntityReference linkText="System.Threading.Timer">T:System.Threading.Timer</codeEntityReference> and <codeEntityReference linkText="System.Timers.Timer">T:System.Timers.Timer</codeEntityReference> timers and provide a unified interface because they both implement the <codeEntityReference>T:ITimer.ISignaler</codeEntityReference> interface. The difference between the first two is perhaps best explained by <externalLink>
+						<linkText>Jon Skeet</linkText>
+						<linkUri>https://jonskeet.uk/csharp/threads/timers.html</linkUri>
+					</externalLink> (archived version <externalLink>
+						<linkText>here</linkText>
+						<linkUri>https://archive.is/eXhQS</linkUri>
+					</externalLink> or <externalLink>
+						<linkText>here</linkText>
+						<linkUri>https://web.archive.org/web/20190303143427/http://jonskeet.uk/csharp/threads/timers.html</linkUri>
+					</externalLink>). The <codeEntityReference linkText="System.Windows.Forms.Timer">T:System.Windows.Forms.Timer</codeEntityReference> is not provided by this library but should be simple to implement.
+				</para>
+				<para>
+					All timers provided by this library are simplified versions of the underlying timers unified to a single, simple, interface. If you need a more specific implementation then you may want to implement them again in your own class, also implementing the <codeEntityReference>T:ITimer.ISignaler</codeEntityReference> interface.
+				</para>
+			</content>
+		</section>
 
-    <section>
-      <title>TestTimer</title>
-      <content>
-        <para>
-          With the <codeEntityReference>T:ITimer.TestTimer</codeEntityReference> you are in complete control over when, and how often, the timer fires. You even control the <codeEntityReference>P:ITimer.TimerElapsedEventArgs.SignalTime</codeEntityReference> so you can specify at what (pretend) time the timer fired. Ofcourse, this is very useful in unittests.
-        </para>
-        <para>
-          The <codeEntityReference>T:ITimer.TestTimer</codeEntityReference> offers some extra properties like the <codeEntityReference>P:ITimer.TestTimer.TickCount</codeEntityReference>, <codeEntityReference>P:ITimer.TestTimer.StartCount</codeEntityReference> and <codeEntityReference>P:ITimer.TestTimer.StopCount</codeEntityReference> that keep track of how often the <codeEntityReference>E:ITimer.ISignaler.Elapsed</codeEntityReference> event has been raised and the timer has been started and stopped respectively (all of which can be reset with the <codeEntityReference>M:ITimer.TestTimer.Reset</codeEntityReference> method). The <codeEntityReference>E:ITimer.ISignaler.Elapsed</codeEntityReference> event for the <codeEntityReference>T:ITimer.TestTimer</codeEntityReference> provides the <codeEntityReference>T:ITimer.TestTimerElapsedEventArgs</codeEntityReference> which also contains a <codeEntityReference>P:ITimer.TestTimerElapsedEventArgs.TickCount</codeEntityReference> property.
-        </para>
-        <para>
-          Most important, however, for the <codeEntityReference>T:ITimer.TestTimer</codeEntityReference> are the <codeEntityReference>M:ITimer.TestTimer.Tick(System.Nullable{System.DateTimeOffset})</codeEntityReference>, <codeEntityReference>M:ITimer.TestTimer.Tick(System.Collections.Generic.IEnumerable{System.DateTimeOffset})</codeEntityReference> and <codeEntityReference>M:ITimer.TestTimer.Tick(System.Int32,System.Func{System.Int32,System.DateTimeOffset})</codeEntityReference> methods. These methods will raise the <codeEntityReference>E:ITimer.ISignaler.Elapsed</codeEntityReference> event on the <codeEntityReference>T:ITimer.TestTimer</codeEntityReference> and allow you to specify the <codeEntityReference>P:ITimer.TimerElapsedEventArgs.SignalTime</codeEntityReference>.
-        </para>
-        <para>
-          Given the above example, we can now replace the <codeEntityReference>T:ITimer.SystemTimer</codeEntityReference> with a <codeEntityReference>T:ITimer.TestTimer</codeEntityReference> for our tests:
-        </para>
-        <code language="cs">
-          <![CDATA[
+		<section>
+			<title>TestTimer</title>
+			<content>
+				<para>
+					With the <codeEntityReference>T:ITimer.TestTimer</codeEntityReference> you are in complete control over when, and how often, the timer fires. You even control the <codeEntityReference>P:ITimer.TimerElapsedEventArgs.SignalTime</codeEntityReference> so you can specify at what (pretend) time the timer fired. Ofcourse, this is very useful in unittests.
+				</para>
+				<para>
+					The <codeEntityReference>T:ITimer.TestTimer</codeEntityReference> offers some extra properties like the <codeEntityReference>P:ITimer.TestTimer.TickCount</codeEntityReference>, <codeEntityReference>P:ITimer.TestTimer.StartCount</codeEntityReference> and <codeEntityReference>P:ITimer.TestTimer.StopCount</codeEntityReference> that keep track of how often the <codeEntityReference>E:ITimer.ISignaler.Elapsed</codeEntityReference> event has been raised and the timer has been started and stopped respectively (all of which can be reset with the <codeEntityReference>M:ITimer.TestTimer.Reset</codeEntityReference> method). The <codeEntityReference>E:ITimer.ISignaler.Elapsed</codeEntityReference> event for the <codeEntityReference>T:ITimer.TestTimer</codeEntityReference> provides the <codeEntityReference>T:ITimer.TestTimerElapsedEventArgs</codeEntityReference> which also contains a <codeEntityReference>P:ITimer.TestTimerElapsedEventArgs.TickCount</codeEntityReference> property.
+				</para>
+				<para>
+					Most important, however, for the <codeEntityReference>T:ITimer.TestTimer</codeEntityReference> are the <codeEntityReference>M:ITimer.TestTimer.Tick(System.Nullable{System.DateTimeOffset})</codeEntityReference>, <codeEntityReference>M:ITimer.TestTimer.Tick(System.Collections.Generic.IEnumerable{System.DateTimeOffset})</codeEntityReference> and <codeEntityReference>M:ITimer.TestTimer.Tick(System.Int32,System.Func{System.Int32,System.DateTimeOffset})</codeEntityReference> methods. These methods will raise the <codeEntityReference>E:ITimer.ISignaler.Elapsed</codeEntityReference> event on the <codeEntityReference>T:ITimer.TestTimer</codeEntityReference> and allow you to specify the <codeEntityReference>P:ITimer.TimerElapsedEventArgs.SignalTime</codeEntityReference>.
+				</para>
+				<para>
+					Given the above example, we can now replace the <codeEntityReference>T:ITimer.SystemTimer</codeEntityReference> with a <codeEntityReference>T:ITimer.TestTimer</codeEntityReference> for our tests:
+				</para>
+				<code language="cs">
+					<![CDATA[
 using (var myTestTimer = new TestTimer()) {
   var myclass = new MyClass(myTestTimer);
   
@@ -140,42 +161,42 @@ using (var myTestTimer = new TestTimer()) {
   Assert.IsTrue(...);
 }
           ]]>
-        </code>
-        <para>
-          The different overloads of the <codeEntityReference>M:ITimer.TestTimer.Tick(System.Nullable{System.DateTimeOffset})</codeEntityReference> method allow you to raise the event multiple times. The <codeEntityReference>T:ITimer.TestTimer</codeEntityReference> has a constructor argument <codeInline>requireStart</codeInline> that allows you to specify wether you require the timer to be started before it will start raising events or not; this defaults to the latter, making your unittests more concise not having to start the <codeEntityReference>T:ITimer.TestTimer</codeEntityReference> each time. When this value equals <languageKeyword>true</languageKeyword> the event won't be raised by any of the <codeInline>Tick()</codeInline> methods unless <codeEntityReference>M:ITimer.TestTimer.Start</codeEntityReference> is called.
-        </para>
-      </content>
-    </section>
+				</code>
+				<para>
+					The different overloads of the <codeEntityReference>M:ITimer.TestTimer.Tick(System.Nullable{System.DateTimeOffset})</codeEntityReference> method allow you to raise the event multiple times. The <codeEntityReference>T:ITimer.TestTimer</codeEntityReference> has a constructor argument <codeInline>requireStart</codeInline> that allows you to specify wether you require the timer to be started before it will start raising events or not; this defaults to the latter, making your unittests more concise not having to start the <codeEntityReference>T:ITimer.TestTimer</codeEntityReference> each time. When this value equals <languageKeyword>true</languageKeyword> the event won't be raised by any of the <codeInline>Tick()</codeInline> methods unless <codeEntityReference>M:ITimer.TestTimer.Start</codeEntityReference> is called.
+				</para>
+			</content>
+		</section>
 
-    <section>
-      <title>License</title>
-      <content>
-        <para>
-          Licensed under MIT license. See <externalLink>
-            <linkText>LICENSE</linkText>
-            <linkUri>https://raw.githubusercontent.com/RobThree/ITimer/main/LICENSE</linkUri>
-          </externalLink> for details.
-        </para>
-      </content>
-    </section>
+		<section>
+			<title>License</title>
+			<content>
+				<para>
+					Licensed under MIT license. See <externalLink>
+						<linkText>LICENSE</linkText>
+						<linkUri>https://raw.githubusercontent.com/RobThree/ITimer/main/LICENSE</linkUri>
+					</externalLink> for details.
+				</para>
+			</content>
+		</section>
 
-    <section>
-      <title>Attribution</title>
-      <content>
-        <para>
-          Icon made by <externalLink>
-            <linkText>Freepik</linkText>
-            <linkUri>https://www.flaticon.com/authors/freepik</linkUri>
-          </externalLink> from <externalLink>
-            <linkText>www.flaticon.com</linkText>
-            <linkUri>https://www.flaticon.com/free-icon/experience_2755467</linkUri>
-          </externalLink>.
-        </para>
-      </content>
-    </section>
+		<section>
+			<title>Attribution</title>
+			<content>
+				<para>
+					Icon made by <externalLink>
+						<linkText>Freepik</linkText>
+						<linkUri>https://www.flaticon.com/authors/freepik</linkUri>
+					</externalLink> from <externalLink>
+						<linkText>www.flaticon.com</linkText>
+						<linkUri>https://www.flaticon.com/free-icon/experience_2755467</linkUri>
+					</externalLink>.
+				</para>
+			</content>
+		</section>
 
-    <relatedTopics>
-      <link xlink:href="09c91a5b-a188-4372-911c-3a41d44605e2" />
-    </relatedTopics>
-  </developerConceptualDocument>
+		<relatedTopics>
+			<link xlink:href="09c91a5b-a188-4372-911c-3a41d44605e2" />
+		</relatedTopics>
+	</developerConceptualDocument>
 </topic>

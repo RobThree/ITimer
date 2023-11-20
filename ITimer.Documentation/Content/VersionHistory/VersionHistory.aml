@@ -11,18 +11,37 @@
 				<para>Select a version below to see a description of its changes.</para>
 
 				<list class="bullet">
-          <listItem>
-            <para>
-              <link xlink:href="9340bd14-6fb5-4204-8d7f-82cf089eeef6" />
-            </para>
-          </listItem>
-          <listItem>
-            <para>
-              <link xlink:href="0ca6b009-fe8b-4dcf-b4a4-8d5e4beff7c1" />
-            </para>
-          </listItem>
-        </list>
-
+					<listItem>
+						<para>
+							<link xlink:href="9340bd14-6fb5-4204-8d7f-82cf089eeef6" />
+						</para>
+					</listItem>
+					<listItem>
+						<para>
+							<link xlink:href="0ca6b009-fe8b-4dcf-b4a4-8d5e4beff7c1" />
+						</para>
+					</listItem>
+					<listItem>
+						<para>
+							<link xlink:href="e442f859-47a1-4477-9794-6d7e1ef9614c" />
+						</para>
+					</listItem>
+					<listItem>
+						<para>
+							<link xlink:href="9c7d1851-d0f2-4408-be37-a43eeeaffbc7" />
+						</para>
+					</listItem>
+					<listItem>
+						<para>
+							<link xlink:href="b7bfbbe6-c436-44e2-a205-16e2250433a9" />
+						</para>
+					</listItem>
+					<listItem>
+						<para>
+							<link xlink:href="329ddb2f-c561-46d8-b62d-af8f5d167cec" />
+						</para>
+					</listItem>
+				</list>
 			</content>
 		</section>
 

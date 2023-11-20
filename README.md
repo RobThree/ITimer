@@ -1,7 +1,11 @@
-# <img src="https://raw.githubusercontent.com/RobThree/ITimer/main/logo.png" alt="Logo" width="32" height="32"> ITimer
+﻿# <img src="https://raw.githubusercontent.com/RobThree/ITimer/main/logo.png" alt="Logo" width="32" height="32"> ITimer
 Provides a testable abstraction and alternative to `System.Threading.Timer`, `System.Timers.Timer` and `System.Threading.PeriodicTimer`. Targets netstandard2.0 and higher.
 
 [![Build status](https://ci.appveyor.com/api/projects/status/cfocayl8qvi3d8cl)](https://ci.appveyor.com/project/RobIII/itimer) <a href="https://www.nuget.org/packages/ITimer/"><img src="http://img.shields.io/nuget/v/ITimer.svg?style=flat-square" alt="NuGet version" height="18"></a>
+
+## First: Good news! 🎉
+
+As of the release of .Net 8 (nov. 14th 2023) Microsoft provides the [TimeProvider class](https://learn.microsoft.com/en-us/dotnet/api/system.timeprovider) and [ITimer interface](https://learn.microsoft.com/en-us/dotnet/api/system.threading.itimer). A good primer on this topic is over at [Andrew Lock's site](https://andrewlock.net/exploring-the-dotnet-8-preview-avoiding-flaky-tests-with-timeprovider-and-itimer/) ([archived version](https://archive.is/5bZU7)). You may want to check that out before continuing. What that means for ITimer? It'll most likely be the end of this library, but that's a good thing. I'll keep supporting it for a while but switching to the Microsoft provided solution shouldn't be too hard.
 
 ## Why and how
 Timer related code is, or should I say _used to be_, hard to unittest. When you have timer related code, you (probably) don't want to wait until the timer elapses in your unittest which would in turn make your unittests slower than strictly necessary.

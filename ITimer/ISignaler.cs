@@ -12,6 +12,7 @@ namespace ITimer;
 /// and <see cref="ISignaler" /> as interface name. If you have any better suggestions, please let us know and
 /// we'll consider it for the next major version.
 /// </remarks>
+[Obsolete("Use System.TimeProvider instead (https://learn.microsoft.com/en-us/dotnet/api/system.timeprovider)")]
 public interface ISignaler : IDisposable
 {
     /// <summary>
