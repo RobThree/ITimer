@@ -15,7 +15,7 @@
 		<Description>Provides a testable abstraction and alternative to System.Threading.Timer and System.Timers.Timer</Description>
 		<PackageIcon>logo.png</PackageIcon>
 		<Configurations>Debug;Release;ReleaseWithDocumentation</Configurations>
-		<PackageReleaseNotes>Added PeriodicTimer (a wrapper for System.Threading.PeriodicTimer).</PackageReleaseNotes>
+		<PackageReleaseNotes>Obsoleted package</PackageReleaseNotes>
 		<LangVersion>latest</LangVersion>
 		<Nullable>enable</Nullable>
 		<EnableNETAnalyzers>true</EnableNETAnalyzers>
@@ -37,8 +37,8 @@
 			<PackagePath></PackagePath>
 		</None>
 		<None Include="..\README.md">
-		  <Pack>True</Pack>
-		  <PackagePath>\</PackagePath>
+			<Pack>True</Pack>
+			<PackagePath>\</PackagePath>
 		</None>
 	</ItemGroup>
 </Project>
